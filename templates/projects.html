@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Наши проекты{% endblock %}
+
+{% block content %}
+<div class="page-hero projects-hero">
+    <div class="container">
+        <h1>Наши проекты</h1>
+        <p>Реализованные работы, которые говорят сами за себя</p>
+    </div>
+</div>
+
+<div class="container page-content">
+
+    <div class="projects-info">
+        <p>Всего проектов: <span id="totalProjects">{{ all_projects_count }}</span></p>
+    </div>
+
+    <div class="search-container">
+        <div class="search-form">
+            <div class="search-input-group">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    class="search-input" 
+                    placeholder="Поиск по названию проекта, заказчику..."
+                    autocomplete="off"
+                >
+                <button type="button" id="searchButton" class="search-button">
+                    <i class="fas fa-search"></i> Найти
+                </button>
+            </div>
+            <div id="searchResultsInfo" class="search-results-info" style="display: none;">
+                <p>Найдено: <span id="foundCount">0</span> из <span id="totalCount">{{ all_projects_count }}</span></p>
+                <a href="#" id="clearSearch" class="clear-search">
+                    <i class="fas fa-times"></i> Показать все проекты
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="projectsGrid" class="projects-grid">
+    </div>
+</div>
+<script>
+    window.allProjects = {{ projects_json|safe }};
+</script>
+
+<script src="{% static 'js/projects-search.js' %}"></script>
+
+{% endblock %}

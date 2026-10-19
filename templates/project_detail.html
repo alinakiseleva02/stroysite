@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.name }} - Детали проекта{% endblock %}
+
+{% block content %}
+<div class="page-hero project-detail-hero">
+    <div class="container">
+        <nav class="breadcrumb-nav">
+            <a href="{% url 'projects' %}" class="breadcrumb-link">
+                <i class="fas fa-arrow-left"></i> Назад к проектам
+            </a>
+        </nav>
+        <h1>{{ project.name }}</h1>
+        <div class="project-meta">
+            <div class="meta-badges">
+                <span class="budget-badge">{{ project.formatted_budget }}</span>
+                <span class="duration-badge">{{ project.formatted_construction_period }}</span>
+                <span class="date-badge">
+                    <i class="far fa-calendar-alt"></i> Старт: {{ project.formatted_start_date }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container page-content">
+    <div class="project-detail-wrapper">
+        <div class="project-main-content">
+            <div class="project-image-card">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.name }}" class="main-project-image">
+                {% else %}
+                <div class="project-image-placeholder">
+                    <i class="fas fa-home"></i>
+                    <span>Изображение проекта</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Описание проекта</h3>
+                </div>
+                <div class="card-body">
+                    {% if project.description %}
+                    <div class="description-text">
+                        {{ project.description|linebreaks }}
+                    </div>
+                    {% else %}
+                    <p class="no-description">Подробное описание проекта пока не добавлено.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if construction_objects %}
+            <div class="info-card">
+                <div class="card-header">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3>Строительные объекты</h3>
+                    <span class="badge-count">{{ construction_objects.count }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="objects-grid">
+                        {% for obj in construction_objects %}
+                        <div class="object-item">
+                            <div class="object-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="object-info">
+                                <h4>{{ obj.address }}</h4>
+                                <div class="stage-tag {{ obj.construction_stage|slugify }}">
+                                    {{ obj.construction_stage }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if documents %}
+            <div class="info-card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Документы проекта</h3>
+                    <span class="badge-count">{{ documents.count }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="documents-list">
+                        {% for doc in documents %}
+                        <a href="{{ doc.file_link }}" target="_blank" class="document-item">
+                            <div class="document-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="document-info">
+                                <h5>{{ doc.title }}</h5>
+                                <div class="document-meta">
+                                    <span class="document-date">
+                                        <i class="far fa-calendar"></i> {{ doc.creation_date|date:"d.m.Y" }}
+                                    </span>
+                                    <span class="document-type">PDF</span>
+                                </div>
+                            </div>
+                            <div class="document-action">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="project-sidebar">
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <i class="fas fa-building"></i>
+                    <h3>Заказчик</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item">
+                        <div class="info-label">Компания</div>
+                        <div class="info-value">{{ project.customer.company_name }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Контактное лицо</div>
+                        <div class="info-value">{{ project.customer.contact_person }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Телефон</div>
+                        <div class="info-value">
+                            <a href="tel:{{ project.customer.phone_number }}" class="contact-link">
+                                {{ project.customer.phone_number }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Email</div>
+                        <div class="info-value">
+                            <a href="mailto:{{ project.customer.email }}" class="contact-link">
+                                {{ project.customer.email }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Ответственный</h3>
+                </div>
+                <div class="card-body">
+                    <div class="employee-avatar">
+                        {{ project.employee.full_name|first }}
+                    </div>
+                    <div class="employee-info">
+                        <h4>{{ project.employee.full_name }}</h4>
+                        <p class="employee-position">{{ project.employee.position }}</p>
+                        <div class="employee-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-building"></i> {{ project.employee.department }}
+                            </span>
+                            <span class="meta-item">
+                                <i class="far fa-calendar-alt"></i> {{ project.employee.hire_date|date:"d.m.Y" }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Финансы и сроки</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-item highlight">
+                        <div class="info-label">Бюджет проекта</div>
+                        <div class="info-value budget-value">{{ project.formatted_budget }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Срок строительства</div>
+                        <div class="info-value">{{ project.formatted_construction_period }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Дата начала</div>
+                        <div class="info-value">{{ project.formatted_start_date }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-actions">
+                <a href="{% url 'projects' %}" class="back-to-projects-btn">
+                    <i class="fas fa-arrow-left"></i> К списку проектов
+                </a>
+                <button class="contact-btn" onclick="window.location.href='{% url 'contacts' %}'">
+                    <i class="fas fa-phone-alt"></i> Связаться
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

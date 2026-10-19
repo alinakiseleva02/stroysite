@@ -1,0 +1,19 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+db.sqlite3
+.venv/
+venv/
+env/
+media/
+
+# Vue / Node.js
+node_modules/
+dist/
+.vite/
+
+# Редакторы и ОС
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
