@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Сторонние библиотеки
+    # Сторонние библиотеки для API и связи с Vue
     'rest_framework',
     'corsheaders',
     # Ваше приложение
@@ -32,7 +32,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Разрешаем Vue делать запросы к API
+# Разрешаем Vue.js делать запросы к нашему API
 CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = 'project.urls'
@@ -40,7 +40,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [], # <--- ПУСТО, так как HTML теперь во Vue
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,14 +62,23 @@ DATABASES = {
     }
 }
 
-# ... (AUTH_PASSWORD_VALIDATORS оставляем как было) ...
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
 
 LANGUAGE_CODE = 'ru-ru'
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'Asia/Dubai' # Поставил Дубай, раз у нас такой дизайн :)
 USE_I18N = True
 USE_TZ = True
 
+# Статика (нужна только для работы админки Django)
 STATIC_URL = '/static/'
+
+# Медиа (загруженные картинки проектов)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
