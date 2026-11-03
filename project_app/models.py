@@ -1,21 +1,5 @@
 from django.db import models
 
-class Users(models.Model):
-    name = models.CharField(verbose_name='Имя пользователя', max_length=20)
-    surname = models.CharField('Фамилия', max_length=25)
-    mail = models.EmailField('Email', unique=True)
-    nickname = models.CharField('Никнейм', max_length=50, unique=True)
-    registration_date = models.DateField('Дата регистрации', auto_now_add=True)
-    is_active = models.BooleanField('Активен', default=True)
-    last_login = models.DateTimeField('Последний вход', null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
- 
-    def __str__(self):
-        return self.nickname
-    
 class Employees(models.Model):
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
     position = models.CharField(max_length=50, verbose_name='Должность')
@@ -42,6 +26,18 @@ class Customers(models.Model):
     
     def __str__(self):
         return self.company_name
+
+class Materials(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Название материала')
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена за единицу')
+    available_quantity = models.IntegerField(verbose_name='Доступное количество')
+    
+    class Meta:
+        verbose_name = 'Материал'
+        verbose_name_plural = 'Материалы'
+    
+    def __str__(self):
+        return self.name 
 
 class Projects(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название проекта')
@@ -77,18 +73,6 @@ class Projects(models.Model):
     def __str__(self):
         return self.name
 
-class Materials(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Название материала')
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена за единицу')
-    available_quantity = models.IntegerField(verbose_name='Доступное количество')
-    
-    class Meta:
-        verbose_name = 'Материал'
-        verbose_name_plural = 'Материалы'
-    
-    def __str__(self):
-        return self.name 
-
 class Teams(models.Model):
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE, verbose_name='Сотрудник')
     specialty = models.CharField(max_length=100, verbose_name='Специальность команды')
@@ -101,39 +85,26 @@ class Teams(models.Model):
     def __str__(self):
         return f"Бригада {self.specialty}"
 
-class Documents(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Заголовок документа')
-    creation_date = models.DateField(verbose_name='Дата создания')
-    file_link = models.URLField(verbose_name='Ссылка на файл')
-    project = models.ForeignKey(Projects, on_delete=models.CASCADE, verbose_name='Проект')
-    
-    class Meta:
-        verbose_name = 'Документ'
-        verbose_name_plural = 'Документы'
-    
-    def __str__(self):
-        return self.title
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Projects, related_name='gallery', on_delete=models.CASCADE, verbose_name='Проект')
+    image = models.ImageField(upload_to='projects/gallery/', verbose_name='Фотография')
 
-class ConstructionObjects(models.Model):
-    address = models.CharField(max_length=200, verbose_name='Адрес стройплощадки')
-    construction_stage = models.CharField(max_length=100, verbose_name='Стадия строительства')
-    project = models.ForeignKey(Projects, on_delete=models.CASCADE, verbose_name='Проект')
-    
     class Meta:
-        verbose_name = 'Строительство объекта'
-        verbose_name_plural = 'Строительство объектов'
-    
-    def __str__(self):
-        return f"{self.address} - {self.construction_stage}"
+        verbose_name = 'Фотография галереи'
+        verbose_name_plural = 'Галерея проекта'
 
-class MaterialUsage(models.Model):
-    material = models.ForeignKey(Materials, on_delete=models.PROTECT, verbose_name='Материал')
-    construction_object = models.ForeignKey(ConstructionObjects, on_delete=models.CASCADE, verbose_name='Строительство объекта')
-    material_consumption = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Расход материала')
-    
-    class Meta:
-        verbose_name = 'Использование материалов'
-        verbose_name_plural = 'Использование материалов'
-    
     def __str__(self):
-        return f"{self.material} - {self.construction_object}"
+        return f"Фото для {self.project.name}"
+
+class ContactRequest(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Имя клиента')
+    phone = models.CharField(max_length=20, verbose_name='Телефон')
+    message = models.TextField(verbose_name='Сообщение', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата заявки')
+
+    class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки (Обратная связь)'
+
+    def __str__(self):
+        return f"Заявка от {self.name}"

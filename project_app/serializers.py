@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Projects, Employees, Customers, Materials, Teams, Documents, ConstructionObjects
+from .models import Projects, Employees, Customers, Materials, Teams, ProjectImage, ContactRequest
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,19 +11,23 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customers
         fields = '__all__'
 
+class ProjectImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectImage
+        fields = ['id', 'image']
+
 class ProjectSerializer(serializers.ModelSerializer):
-    # Для чтения (GET) мы хотим видеть вложенные объекты
     employee_details = EmployeeSerializer(source='employee', read_only=True)
     customer_details = CustomerSerializer(source='customer', read_only=True)
+    gallery = ProjectImageSerializer(many=True, read_only=True)
     
-    # Вычисляемые поля
     formatted_budget = serializers.ReadOnlyField()
     formatted_start_date = serializers.ReadOnlyField()
     formatted_construction_period = serializers.ReadOnlyField()
 
     class Meta:
         model = Projects
-        fields = '__all__' # Включает и id сотрудника/заказчика (для POST/PUT), и details (для GET)
+        fields = '__all__'
 
 class MaterialSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,12 +39,7 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Teams
         fields = '__all__'
 
-class ConstructionObjectSerializer(serializers.ModelSerializer):
+class ContactRequestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ConstructionObjects
-        fields = '__all__'
-
-class DocumentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Documents
+        model = ContactRequest
         fields = '__all__'

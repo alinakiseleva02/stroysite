@@ -1,5 +1,8 @@
 from rest_framework import viewsets
-from .models import Projects, Employees, Customers, Materials, Teams, Documents, ConstructionObjects
+from rest_framework.permissions import AllowAny
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from .models import Projects, Employees, Customers, Materials, Teams, ContactRequest
 from .serializers import *
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -22,10 +25,9 @@ class TeamViewSet(viewsets.ModelViewSet):
     queryset = Teams.objects.all()
     serializer_class = TeamSerializer
 
-class ConstructionObjectViewSet(viewsets.ModelViewSet):
-    queryset = ConstructionObjects.objects.all()
-    serializer_class = ConstructionObjectSerializer
-
-class DocumentViewSet(viewsets.ModelViewSet):
-    queryset = Documents.objects.all()
-    serializer_class = DocumentSerializer
+@method_decorator(csrf_exempt, name='dispatch')
+class ContactRequestViewSet(viewsets.ModelViewSet):
+    queryset = ContactRequest.objects.all().order_by('-created_at')
+    serializer_class = ContactRequestSerializer
+    permission_classes = [AllowAny]
+    authentication_classes = []

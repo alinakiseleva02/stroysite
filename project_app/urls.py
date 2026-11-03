@@ -6,12 +6,13 @@ router = DefaultRouter()
 router.register(r'projects', ProjectViewSet)
 router.register(r'employees', EmployeeViewSet)
 router.register(r'customers', CustomerViewSet)
-router.register(r'materials', MaterialViewSet) # <--- Проверьте, что эта строчка ЕСТЬ
+router.register(r'materials', MaterialViewSet)
 router.register(r'teams', TeamViewSet)
-router.register(r'objects', ConstructionObjectViewSet)
-router.register(r'documents', DocumentViewSet)
+
+# ВОТ ЭТА СТРОЧКА ОТВЕЧАЕТ ЗА ЗАЯВКИ:
+router.register(r'contacts', ContactRequestViewSet) 
 
 urlpatterns = [
-    # ВАЖНО: здесь должно быть ПУСТО, так как 'api/' мы уже добавили в главном файле project/urls.py
+    # Обратите внимание: здесь должно быть ПУСТО '', а не 'api/'
     path('', include(router.urls)), 
 ]

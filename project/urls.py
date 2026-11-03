@@ -21,8 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # ВОТ ЗДЕСЬ мы добавляем 'api/'. Именно поэтому в Postman мы пишем /api/materials/
-    path('api/', include('project_app.urls')), 
+    path('api/', include('project_app.urls')), # <-- Префикс api/ находится здесь
 ]
 
 if settings.DEBUG:
