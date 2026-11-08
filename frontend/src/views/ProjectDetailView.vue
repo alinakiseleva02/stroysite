@@ -6,7 +6,7 @@ import axios from 'axios'
 const route = useRoute()
 const project = ref(null)
 
-// Логика карусели
+
 const currentSlide = ref(0)
 let slideInterval = null
 
@@ -47,14 +47,14 @@ onUnmounted(() => {
   
   <div v-if="project" class="container" style="padding: 60px 20px; padding-bottom: 100px;">
     
-    <!-- ГЛАВНАЯ КАРТИНКА ПРОЕКТА -->
+
     <div v-if="project.image" class="hero-image-container">
       <img :src="project.image" :alt="project.name">
     </div>
 
     <div class="project-layout">
       
-      <!-- ИНФОРМАЦИЯ -->
+
       <div class="info-section">
         <h2>О проекте</h2>
         <p class="description">{{ project.description }}</p>
@@ -81,7 +81,7 @@ onUnmounted(() => {
         <RouterLink to="/projects" class="btn">← Вернуться в каталог</RouterLink>
       </div>
 
-      <!-- ГАЛЕРЕЯ С АВТОПРОКРУТКОЙ -->
+
       <div class="gallery-section" v-if="project.gallery && project.gallery.length > 0">
         <div class="carousel">
           <div 
@@ -110,7 +110,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Стили для главной картинки */
+
 .hero-image-container {
   width: 100%;
   height: 600px;
@@ -126,7 +126,7 @@ onUnmounted(() => {
   object-fit: cover;
 }
 
-/* Сетка */
+
 .project-layout {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -134,7 +134,7 @@ onUnmounted(() => {
   align-items: start;
 }
 
-/* Текст */
+
 .info-section h2 { font-size: 3rem; color: var(--dark); margin-bottom: 20px; }
 .description { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
 .specs { border-top: 1px solid #EEE; padding-top: 30px; margin-bottom: 40px; }
@@ -142,7 +142,7 @@ onUnmounted(() => {
 .spec-item .label { color: var(--text-muted); font-weight: 500; }
 .spec-item .value { color: var(--dark); font-weight: 600; font-size: 1.1rem; }
 
-/* Галерея */
+
 .gallery-section {
   position: relative;
   width: 100%;
@@ -170,7 +170,7 @@ onUnmounted(() => {
 
 .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Точки */
+
 .carousel-dots {
   position: absolute;
   bottom: 20px;

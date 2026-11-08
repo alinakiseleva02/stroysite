@@ -60,7 +60,7 @@ const resetForm = () => { submitStatus.value = '' }
     </div>
   </section>
 
-  <!-- 2. СТАТИСТИКА И КЛИЕНТЫ (Возвращаем сюда) -->
+
   <section class="stats-section">
     <div class="container">
       <div class="stats-grid">
@@ -81,7 +81,6 @@ const resetForm = () => { submitStatus.value = '' }
         </div>
       </div>
 
-      <!-- Блок счастливых клиентов -->
       <div class="happy-clients">
         <div class="client-avatars">
           <img src="/images/client1.png" alt="Client">
@@ -93,12 +92,12 @@ const resetForm = () => { submitStatus.value = '' }
     </div>
   </section>
 
-  <!-- 3. ПРЕМИАЛЬНАЯ ФОРМА ОБРАТНОЙ СВЯЗИ -->
+
   <section class="contact-section">
     <div class="container">
       <div class="contact-card">
         
-        <!-- Успешная отправка -->
+
         <div v-if="submitStatus === 'success'" class="success-block">
           <div class="success-icon">✓</div>
           <h2>Заявка принята</h2>
@@ -106,7 +105,7 @@ const resetForm = () => { submitStatus.value = '' }
           <button @click="resetForm" class="btn" style="margin-top: 30px;">Отправить еще одну</button>
         </div>
 
-        <!-- Сама форма -->
+
         <div v-else>
           <h2>Обсудить проект</h2>
           <p>Оставьте свои контакты, и мы откроем для вас двери в мир роскоши.</p>
@@ -138,11 +137,7 @@ const resetForm = () => { submitStatus.value = '' }
 </template>
 
 <style scoped>
-/* ===============================
-   ПРЕМИАЛЬНЫЙ ДИЗАЙН (ДОРОГО-БОГАТО)
-   =============================== */
 
-/* --- Блок клиентов --- */
 .happy-clients {
   margin-top: 70px;
   display: flex;
@@ -181,7 +176,6 @@ const resetForm = () => { submitStatus.value = '' }
   font-family: var(--font-body);
 }
 
-/* --- Секция с формой --- */
 .contact-section {
   padding: 120px 0;
   background: var(--dark);
@@ -189,7 +183,7 @@ const resetForm = () => { submitStatus.value = '' }
   overflow: hidden;
 }
 
-/* Декоративное золотое свечение на фоне */
+
 .contact-section::before {
   content: '';
   position: absolute;
@@ -206,7 +200,7 @@ const resetForm = () => { submitStatus.value = '' }
 .contact-card {
   max-width: 800px;
   margin: 0 auto;
-  background: #141414; /* Темный премиальный фон карточки */
+  background: #141414; 
   padding: 70px 60px;
   text-align: center;
   border: 1px solid rgba(197, 160, 89, 0.3);
@@ -230,7 +224,7 @@ const resetForm = () => { submitStatus.value = '' }
   font-weight: 300;
 }
 
-/* Поля ввода */
+
 .premium-form {
   display: flex;
   flex-direction: column;
@@ -291,7 +285,7 @@ const resetForm = () => { submitStatus.value = '' }
   box-shadow: 0 15px 30px rgba(197, 160, 89, 0.3);
 }
 
-/* Блок успеха */
+
 .success-block {
   padding: 40px 0;
   animation: fadeIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);

@@ -24,10 +24,10 @@ onMounted(async () => {
 
   <div class="container" style="padding-top: 60px; padding-bottom: 60px;">
     <div class="projects-grid">
-      <!-- Цикл по материалам -->
+
       <div v-for="m in materials" :key="m.id" class="project-card" style="padding: 40px; text-align:center; position: relative; overflow: hidden;">
         
-        <!-- Золотая иконка (можно заменить на картинку позже) -->
+
         <div style="font-size: 3.5rem; color: var(--gold); margin-bottom: 25px;">
           <i class="fas fa-gem"></i>
         </div>

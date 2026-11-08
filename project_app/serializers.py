@@ -4,7 +4,7 @@ from .models import Projects, Employees, Customers, Materials, Teams, ProjectIma
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employees
-        fields = '__all__'
+        fields = ['id', 'full_name', 'position', 'department', 'hire_date', 'photo']
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,9 +35,11 @@ class MaterialSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TeamSerializer(serializers.ModelSerializer):
+    employee_name = serializers.ReadOnlyField(source='employee.full_name')
+
     class Meta:
         model = Teams
-        fields = '__all__'
+        fields = ['id', 'specialty', 'member_count', 'image', 'employee_name']
 
 class ContactRequestSerializer(serializers.ModelSerializer):
     class Meta:

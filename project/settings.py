@@ -14,15 +14,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Сторонние библиотеки для API и связи с Vue
     'rest_framework',
     'corsheaders',
-    # Ваше приложение
     'project_app',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', # Важно: должно быть первым
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -32,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Разрешаем Vue.js делать запросы к нашему API
+
 CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = 'project.urls'
@@ -40,7 +38,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [], # <--- ПУСТО, так как HTML теперь во Vue
+        'DIRS': [], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,14 +68,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ru-ru'
-TIME_ZONE = 'Asia/Dubai' # Поставил Дубай, раз у нас такой дизайн :)
+TIME_ZONE = 'Asia/Dubai' 
 USE_I18N = True
 USE_TZ = True
 
-# Статика (нужна только для работы админки Django)
+
 STATIC_URL = '/static/'
 
-# Медиа (загруженные картинки проектов)
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

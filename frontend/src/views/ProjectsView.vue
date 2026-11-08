@@ -37,7 +37,7 @@ const filteredProjects = computed(() => {
 
     <div class="projects-grid">
       <div v-for="p in filteredProjects" :key="p.id" class="project-card">
-        <!-- Картинка проекта -->
+
         <div class="project-image">
            <img v-if="p.image" :src="p.image" :alt="p.name">
            <div v-else class="placeholder">YALI</div>
@@ -74,7 +74,7 @@ const filteredProjects = computed(() => {
 }
 
 .project-card:hover .project-image img {
-  transform: scale(1.08); /* Зум при наведении */
+  transform: scale(1.08); 
 }
 
 .placeholder {
