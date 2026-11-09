@@ -7,12 +7,10 @@ router.register(r'projects', ProjectViewSet)
 router.register(r'employees', EmployeeViewSet)
 router.register(r'customers', CustomerViewSet)
 router.register(r'materials', MaterialViewSet)
-router.register(r'teams', TeamViewSet)
-
-
-router.register(r'contacts', ContactRequestViewSet) 
+router.register(r'services', ServiceViewSet)
+router.register(r'reviews', ReviewViewSet)
+router.register(r'contacts', ContactRequestViewSet)
 
 urlpatterns = [
-
     path('', include(router.urls)), 
 ]

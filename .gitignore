@@ -1,11 +1,9 @@
 # Python / Django
 __pycache__/
 *.py[cod]
-db.sqlite3
 .venv/
 venv/
 env/
-media/
 
 # Vue / Node.js
 node_modules/

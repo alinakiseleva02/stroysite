@@ -41,7 +41,6 @@ const resetForm = () => { submitStatus.value = '' }
 </script>
 
 <template>
-  <!-- 1. ГЛАВНЫЙ ЭКРАН -->
   <section class="main-frame">
     <img src="/images/dubai-bg.png" alt="Dubai" class="frame-background">
     <div class="dark-overlay"></div>

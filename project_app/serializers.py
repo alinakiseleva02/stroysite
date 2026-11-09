@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Projects, Employees, Customers, Materials, Teams, ProjectImage, ContactRequest
+from .models import Projects, Employees, Customers, Materials, ProjectImage, ContactRequest, Services, Reviews
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employees
-        fields = ['id', 'full_name', 'position', 'department', 'hire_date', 'photo']
+        fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,14 +34,17 @@ class MaterialSerializer(serializers.ModelSerializer):
         model = Materials
         fields = '__all__'
 
-class TeamSerializer(serializers.ModelSerializer):
-    employee_name = serializers.ReadOnlyField(source='employee.full_name')
-
-    class Meta:
-        model = Teams
-        fields = ['id', 'specialty', 'member_count', 'image', 'employee_name']
-
 class ContactRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactRequest
+        fields = '__all__'
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = '__all__'
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reviews
         fields = '__all__'

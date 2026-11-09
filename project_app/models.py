@@ -6,7 +6,6 @@ class Employees(models.Model):
     department = models.CharField(max_length=50, verbose_name='Отдел')
     salary = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Зарплата')
     hire_date = models.DateField(verbose_name='Дата приема на работу')
-    photo = models.ImageField(upload_to='employees/', verbose_name='Фотография', blank=True, null=True)
     
     class Meta:
         verbose_name = 'Сотрудник'
@@ -74,18 +73,31 @@ class Projects(models.Model):
     def __str__(self):
         return self.name
 
-class Teams(models.Model):
-    employee = models.ForeignKey(Employees, on_delete=models.CASCADE, verbose_name='Сотрудник')
-    specialty = models.CharField(max_length=100, verbose_name='Специальность команды')
-    member_count = models.IntegerField(verbose_name='Количество членов в команде')
-    image = models.ImageField(upload_to='teams/', verbose_name='Фотография бригады', blank=True, null=True)
-    
+class Services(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Название услуги')
+    description = models.TextField(verbose_name='Описание')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Стоимость от')
+    icon = models.CharField(max_length=50, verbose_name='Иконка (например, fa-home)', default='fa-building')
+
     class Meta:
-        verbose_name = 'Бригада'
-        verbose_name_plural = 'Бригады'
-    
+        verbose_name = 'Услуга'
+        verbose_name_plural = 'Услуги'
+
     def __str__(self):
-        return f"Бригада {self.specialty}"
+        return self.title
+
+class Reviews(models.Model):
+    client_name = models.CharField(max_length=100, verbose_name='Имя клиента')
+    text = models.TextField(verbose_name='Текст отзыва')
+    rating = models.IntegerField(verbose_name='Оценка (1-5)', default=5)
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return f"Отзыв от {self.client_name}"
 
 class ProjectImage(models.Model):
     project = models.ForeignKey(Projects, related_name='gallery', on_delete=models.CASCADE, verbose_name='Проект')

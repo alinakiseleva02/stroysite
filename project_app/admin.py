@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Projects, Employees, Customers, Materials, Teams, ProjectImage, ContactRequest
+from .models import Projects, Employees, Customers, Materials, ProjectImage, ContactRequest, Services, Reviews
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
@@ -19,4 +19,5 @@ class ContactRequestAdmin(admin.ModelAdmin):
 admin.site.register(Employees)
 admin.site.register(Customers)
 admin.site.register(Materials)
-admin.site.register(Teams)
+admin.site.register(Services)
+admin.site.register(Reviews)

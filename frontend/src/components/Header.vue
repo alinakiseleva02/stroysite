@@ -7,9 +7,12 @@
       </RouterLink>
       <nav class="header__nav">
         <RouterLink to="/">Главная</RouterLink>
+        <RouterLink to="/services">Услуги</RouterLink>
         <RouterLink to="/projects">Проекты</RouterLink>
         <RouterLink to="/team">Команда</RouterLink>
         <RouterLink to="/materials">Материалы</RouterLink>
+        <RouterLink to="/reviews">Отзывы</RouterLink>
+        <RouterLink to="/customers">Партнеры</RouterLink>
         <RouterLink to="/contacts">Контакты</RouterLink>
       </nav>
     </div>
