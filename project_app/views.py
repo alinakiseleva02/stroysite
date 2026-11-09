@@ -6,8 +6,11 @@ from .models import Projects, Employees, Customers, Materials, ContactRequest, S
 from .serializers import *
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Projects.objects.all().order_by('-id')
-    serializer_class = ProjectSerializer
+    queryset = Projects.objects.all()
+    serializer_class = ProjectSerializer  
+
+    def get_queryset(self):               
+        return super().get_queryset().order_by('-id')  
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employees.objects.all()
