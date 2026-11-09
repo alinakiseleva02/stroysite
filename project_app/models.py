@@ -6,6 +6,7 @@ class Employees(models.Model):
     department = models.CharField(max_length=50, verbose_name='Отдел')
     salary = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Зарплата')
     hire_date = models.DateField(verbose_name='Дата приема на работу')
+    image = models.ImageField(upload_to='employees/', verbose_name='Фото сотрудника', blank=True, null=True)
     
     class Meta:
         verbose_name = 'Сотрудник'
@@ -31,6 +32,7 @@ class Materials(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название материала')
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена за единицу')
     available_quantity = models.IntegerField(verbose_name='Доступное количество')
+    image = models.ImageField(upload_to='materials/', verbose_name='Фото материала', blank=True, null=True)
     
     class Meta:
         verbose_name = 'Материал'

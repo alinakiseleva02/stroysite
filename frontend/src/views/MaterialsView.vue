@@ -27,6 +27,7 @@ onMounted(async () => {
         <div style="font-size: 3rem; color: var(--gold); margin-bottom: 20px;">
           <i class="fas fa-gem"></i>
         </div>
+        <img v-if="m.image" :src="m.image" alt="Фото" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 20px; border: 1px solid #eee;">
         <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: var(--dark);">{{ m.name }}</h3>
         <div style="border-top: 1px solid #EEE; padding-top: 20px; margin-top: 20px;">
           <p style="color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Цена за ед.</p>
