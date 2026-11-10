@@ -7,7 +7,7 @@ import TeamView from '../views/TeamView.vue'
 import ContactsView from '../views/ContactsView.vue'
 import ServicesView from '../views/ServicesView.vue'
 import ReviewsView from '../views/ReviewsView.vue'
-import CustomersView from '../views/CustomersView.vue' 
+import CustomersView from '../views/CustomersView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,9 +19,19 @@ const router = createRouter({
     { path: '/team', name: 'team', component: TeamView },
     { path: '/materials', name: 'materials', component: MaterialsView },
     { path: '/reviews', name: 'reviews', component: ReviewsView },
-    { path: '/customers', name: 'customers', component: CustomersView }, 
+    { path: '/customers', name: 'customers', component: CustomersView },
     { path: '/contacts', name: 'contacts', component: ContactsView },
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+        top: 80
+      }
+    }
+    return { top: 0 }
+  }
 })
 
 export default router

@@ -6,7 +6,6 @@ import axios from 'axios'
 const route = useRoute()
 const project = ref(null)
 
-
 const currentSlide = ref(0)
 let slideInterval = null
 
@@ -26,7 +25,7 @@ onMounted(async () => {
     project.value = res.data
     
     if (project.value.gallery && project.value.gallery.length > 1) {
-      slideInterval = setInterval(nextSlide, 3000) // Смена каждые 3 сек
+      slideInterval = setInterval(nextSlide, 3000)
     }
   } catch (error) {
     console.error("Ошибка загрузки", error)
@@ -45,16 +44,14 @@ onUnmounted(() => {
     </div>
   </div>
   
-  <div v-if="project" class="container" style="padding: 60px 20px; padding-bottom: 100px;">
+  <div v-if="project" class="container project-detail-container">
     
-
     <div v-if="project.image" class="hero-image-container">
       <img :src="project.image" :alt="project.name">
     </div>
 
     <div class="project-layout">
       
-
       <div class="info-section">
         <h2>О проекте</h2>
         <p class="description">{{ project.description }}</p>
@@ -80,7 +77,6 @@ onUnmounted(() => {
 
         <RouterLink to="/projects" class="btn">← Вернуться в каталог</RouterLink>
       </div>
-
 
       <div class="gallery-section" v-if="project.gallery && project.gallery.length > 0">
         <div class="carousel">
@@ -110,6 +106,10 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.project-detail-container {
+  padding: 60px 20px;
+  padding-bottom: 100px;
+}
 
 .hero-image-container {
   width: 100%;
@@ -126,7 +126,6 @@ onUnmounted(() => {
   object-fit: cover;
 }
 
-
 .project-layout {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -134,14 +133,42 @@ onUnmounted(() => {
   align-items: start;
 }
 
+.info-section h2 {
+  font-size: 3rem;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
 
-.info-section h2 { font-size: 3rem; color: var(--dark); margin-bottom: 20px; }
-.description { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
-.specs { border-top: 1px solid #EEE; padding-top: 30px; margin-bottom: 40px; }
-.spec-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
-.spec-item .label { color: var(--text-muted); font-weight: 500; }
-.spec-item .value { color: var(--dark); font-weight: 600; font-size: 1.1rem; }
+.description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
 
+.specs {
+  border-top: 1px solid #EEE;
+  padding-top: 30px;
+  margin-bottom: 40px;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.spec-item .label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.spec-item .value {
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
 
 .gallery-section {
   position: relative;
@@ -152,11 +179,19 @@ onUnmounted(() => {
   box-shadow: 0 20px 50px rgba(197, 160, 89, 0.15);
 }
 
-.carousel { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
 .carousel-slide {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: opacity 1s ease-in-out;
   transform: scale(1.05);
@@ -165,11 +200,15 @@ onUnmounted(() => {
 .carousel-slide.active {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 1s ease-in-out, transform 6s linear; /* Эффект плавного зума */
+  transition: opacity 1s ease-in-out, transform 6s linear;
 }
 
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 .carousel-dots {
   position: absolute;
@@ -182,18 +221,31 @@ onUnmounted(() => {
 }
 
 .dot {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: rgba(255,255,255,0.5); cursor: pointer; transition: 0.3s;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .dot.active {
-  background: var(--gold); transform: scale(1.3);
+  background: var(--gold);
+  transform: scale(1.3);
   box-shadow: 0 0 10px rgba(197, 160, 89, 0.8);
 }
 
 @media (max-width: 900px) {
-  .project-layout { grid-template-columns: 1fr; }
-  .hero-image-container { height: 300px; }
-  .gallery-section { height: 300px; }
+  .project-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-image-container {
+    height: 300px;
+  }
+  
+  .gallery-section {
+    height: 300px;
+  }
 }
 </style>
